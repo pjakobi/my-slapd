@@ -11,7 +11,7 @@ and
     %define release 1
 
 * Once you have it, download the complete repo :
-    git clone git://github.com/pjakobi/my-slapd my-slapd-0.0.1
+    `git clone git://github.com/pjakobi/my-slapd my-slapd-0.0.1`
 
 * In the my-slapd-0.0.1/myslapd.spec file, set the _topdir_ to `_somewhere_/rpmbuild`. Save it into the `_somewhere_/rpmbuild/SPECS` directory
     
