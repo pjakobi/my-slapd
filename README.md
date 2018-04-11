@@ -1,9 +1,24 @@
 # comtics-slapd
-# comtics-slapd
+
 This is a spec file that may be used to install quickly an openldap instance (rpm format). The rpm comes with a few configuration files that are necessary. The spec file also lists the various dependencies that are necessary, including fusion directory.
 
-## Set up
-As usual with RPMs, a build environment is necessary, typically rpmbuild/{SPECS, SOURCES, RPMS, ...} (see rpm documentation).
+## Preparation
+* As usual with RPMs, a build environment is necessary, typically _somewhere_/rpmbuild/{SPECS, SOURCES, RPMS, ...} (see rpm documentation).
+
+* Also, you need to know your `version.release`. This is to be found at the beginning of the spec file on gitHub (my-slapd.spec) :
+    %define version 0.0
+    %define release 1
+
+* Once you have it, download the complete repo :
+    git clone git://github.com/pjakobi/my-slapd my-slapd-0.0.1
+
+* In the my-slapd-0.0.1/myslapd.spec file, set the _topdir_ to `_somewhere_/rpmbuild`. Save it into the `_somewhere_/rpmbuild/SPECS` directory
+    
+
+* At last, create a tar.gz file; it should reside in the SOURCES subdir of the RPM build system :
+    tar cvfz SOURCES/my-slapd-0.0.1.tar.gz my-slapd-0.0.1/*
+
+## LDAP Set up
 
 In order to use this feature, the yum repositories are also to be set correctly (CentOS base, etc.). For Fusion directory repos, refer to the site's documentation.
 
@@ -14,9 +29,8 @@ Regarding the password, a default value is provided, without encryption. A good 
 The root DSE is the "base of the Directory" : dc=gouv,dc=fr or dc=google, dc=com, etc. In these examples, the "Directory First Value" would be "gouv" or "google".
 
 ## Building the RPM
-Before building, the sources (tar.gz) are to be installed in the SOURCES directory : wget https://github.com/pjakobi/comtics-slapd/archive/version.tar.gz (version = 0.1.6 or equivalent).
 
-Then, just run "rpmbuild -ba comtics-slapd.spec" in the SPECS directory. You should then have the rpm file built into RPMS/noarch/comtics-slapd-varsion.noarch.rpm.
+Then, just run "rpmbuild -ba my-slapd.spec" in the SPECS directory. You should then have the rpm file built into RPMS/noarch/comtics-slapd-version.release.noarch.rpm.
 
 ## Installing openldap
 Normally, it becomes as simple as runing "yum localinstall comtics-slapd-varsion.noarch.rpm"....
