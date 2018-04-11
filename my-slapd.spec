@@ -5,7 +5,7 @@ Summary: openldap simplified configuration (ready for Fusion Directory)
 Name: my-slapd
 #%define _topdir /home/utilisateur/Soft/rpmbuild
 #%define _tmppath /home/utilisateur/Soft/rpmbuild/tmp
-%define version 0.1
+%define version 0.0
 %define release 1
 %define root_dse dc=thalesgroup,dc=com
 %define first_dc_val thalesgroup
