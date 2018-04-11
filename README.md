@@ -3,10 +3,11 @@
 This is a spec file that may be used to install quickly an openldap instance (rpm format). The rpm comes with a few configuration files that are necessary. The spec file also lists the various dependencies that are necessary, including fusion directory.
 
 ## Preparation
-* As usual with RPMs, a build environment is necessary, typically _somewhere_/rpmbuild/{SPECS, SOURCES, RPMS, ...} (see rpm documentation).
+* As usual with RPMs, a build environment is necessary, typically `_somewhere_/rpmbuild/{SPECS, SOURCES, RPMS, ...}` (see rpm documentation).
 
 * Also, you need to know your `version.release`. This is to be found at the beginning of the spec file on gitHub (my-slapd.spec) :
     %define version 0.0
+and
     %define release 1
 
 * Once you have it, download the complete repo :
