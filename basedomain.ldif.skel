@@ -1,0 +1,19 @@
+dn: ###ROOT_DSE###
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: Server World
+dc: ###FIRST_DC_VAL###
+
+dn: cn=Manager,###ROOT_DSE###
+objectClass: organizationalRole
+cn: Manager
+description: Directory Manager
+
+dn: ou=People,###ROOT_DSE###
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Group,###ROOT_DSE###
+objectClass: organizationalUnit
+ou: Group

@@ -1,0 +1,58 @@
+include /etc/openldap/schema/core.schema
+Include /etc/openldap/schema/cosine.schema
+include /etc/openldap/schema/inetorgperson.schema
+include /etc/openldap/schema/nis.schema
+include /etc/openldap/schema/fusiondirectory/core-fd-conf.schema
+include /etc/openldap/schema/fusiondirectory/systems-fd.schema
+include /etc/openldap/schema/fusiondirectory/core-fd.schema
+include /etc/openldap/schema/fusiondirectory/service-fd.schema
+include /etc/openldap/schema/fusiondirectory/template-fd.schema
+include /etc/openldap/schema/fusiondirectory/ldapns.schema
+include /etc/openldap/schema/fusiondirectory/systems-fd-conf.schema
+
+
+
+pidfile         /var/run/openldap/slapd.pid
+argsfile        /var/run/openldap/slapd.args
+
+modulepath      /usr/lib64/openldap
+
+# TLS Support : to be done
+#TLSCertificateFile      /etc/ssl/openldap/ldap.pem
+#TLSCertificateKeyFile   /etc/ssl/openldap/ldap.pem
+#TLSCACertificateFile    /etc/ssl/openldap/ldap.pem
+
+# Journalisation
+loglevel 256
+
+###########################################################
+# database definitions
+###########################################################
+
+database        monitor
+access to *
+        by dn.exact="cn=Manager,###ROOT_DSE###"
+        by * read
+
+database        mdb
+suffix          "###ROOT_DSE###"
+rootdn          "cn=Manager,###ROOT_DSE###"
+rootpw          ###PASSWORD###
+
+# Emplacement de la base de  la base de données
+# The database directory MUST exist prior to running slapd AND
+# should only be accessable by the slapd/tools. Mode 700 recommended.
+directory       /var/lib/ldap
+
+# Indexes
+index   objectClass,uid,uidNumber,gidNumber     eq
+index   cn,mail,surname,givenname               eq,subinitial
+
+# Access control
+access to attrs=userPassword
+        by self write
+        by anonymous auth
+        by * none
+
+access to *
+        by * read
