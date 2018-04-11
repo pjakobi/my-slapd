@@ -17,7 +17,7 @@ and
     
 
 * At last, create a tar.gz file; it should reside in the SOURCES subdir of the RPM build system :
-    tar cvfz SOURCES/my-slapd-0.0.1.tar.gz my-slapd-0.0.1/*
+    `tar cvfz SOURCES/my-slapd-0.0.1.tar.gz my-slapd-0.0.1/*`
 
 ## LDAP Set up
 
@@ -27,7 +27,7 @@ At last, 3 parameters are to be set in the spec file : the directory password, t
 
 Regarding the password, a default value is provided, without encryption. A good idea is to leave it as is and change both the configuration and directory database password after installation, thanks to slappassword and ldapmodify (Apache Directory Studio does it perfectly as well).
 
-The root DSE is the "base of the Directory" : dc=gouv,dc=fr or dc=google, dc=com, etc. In these examples, the "Directory First Value" would be "gouv" or "google".
+The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. In these examples, the "Directory First Value" would be "gouv" or "google".
 
 ## Building the RPM
 
