@@ -41,8 +41,6 @@ Schemas from Fusion Directory are also necessary.
 
 
 %build
-echo %{first_dc}
-echo %{first_dc_val}
 sed 's/###ROOT_DSE###/%{root_dse}/' slapd.conf.skel > slapd.conf
 sed -i 's/###PASSWORD###/%{password}/' slapd.conf
 sed 's/###ROOT_DSE###/%{root_dse}/' basedomain.ldif.skel > basedomain.ldif
