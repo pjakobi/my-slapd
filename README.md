@@ -25,13 +25,13 @@ In order to use this feature, the yum repositories are also to be set correctly 
 
 At last, 3 parameters are to be set in the spec file : the directory password, the root DSE, the directory first value. 
 
-Regarding the password, a default value is provided, without encryption. A good idea is to leave it as is and change both the configuration and directory database password after installation, thanks to `slappasswd` and `ldapmodify` (Apache Directory Studio does it perfectly as well).
+Regarding the password, a default value is provided, without encryption. A good idea is to change it when building the RPM (see below). The resultng value, used when building the RPM is encrypted.
 
 The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. In these examples, the "Directory First Value" would be "gouv" or "google".
 
 ## Building the RPM
 
-Then, just run `rpmbuild -ba my-slapd.spec` in the SPECS directory. You should then have the rpm file built into `RPMS/noarch/comtics-slapd-version.release.noarch.rpm`.
+Then, just run `rpmbuild -ba --define 'password my-passwd' my-slapd.spec` in the SPECS directory. You should then have the rpm file built into `RPMS/noarch/comtics-slapd-version.release.noarch.rpm`.
 
 ## Installing openldap
 Normally, it becomes as simple as runing `yum localinstall comtics-slapd-version.noarch.rpm`....
