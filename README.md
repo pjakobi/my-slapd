@@ -23,15 +23,15 @@ and
 
 In order to use this feature, the yum repositories are also to be set correctly (CentOS base, etc.). For Fusion directory repos, refer to the site's documentation.
 
-At last, 3 parameters are to be set in the spec file : the directory password, the root DSE, the directory first value. 
+At last, 3 parameters are to be set : the directory password, the root DSE, the directory first value. 
 
-Regarding the password, a default value is provided, without encryption. A good idea is to change it when building the RPM (see below). The resultng value, used when building the RPM is encrypted.
+Regarding the password, a value is to be provided, without encryption in the "password" file (see example). 
 
-The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. In these examples, the "Directory First Value" would be "gouv" or "google".
+The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. In these examples, the "Directory First Value" would be "gouv" or "google". It has to be set in the spec file 
 
 ## Building the RPM
 
-Then, just run `rpmbuild -ba --define 'password my-passwd' my-slapd.spec` in the SPECS directory. You should then have the rpm file built into `RPMS/noarch/comtics-slapd-version.release.noarch.rpm`.
+Then, just run `rpmbuild -ba my-slapd.spec` in the SPECS directory. You should then have the rpm file built into `RPMS/noarch/comtics-slapd-version.release.noarch.rpm`. Once built, erase the password file in order to avoid leaving a password in the clear somewhere : `echo "" > password`.
 
 ## Installing openldap
 Normally, it becomes as simple as runing `yum localinstall comtics-slapd-version.noarch.rpm`....
