@@ -2,7 +2,7 @@ dn: ###ROOT_DSE###
 objectClass: top
 objectClass: dcObject
 objectclass: organization
-o: Server World
+o: Thales Group
 dc: ###FIRST_DC_VAL###
 
 dn: cn=Manager,###ROOT_DSE###

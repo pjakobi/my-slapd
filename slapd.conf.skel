@@ -29,6 +29,9 @@ loglevel 256
 # database definitions
 ###########################################################
 
+database        config
+rootpw
+
 database        monitor
 access to *
         by dn.exact="cn=Manager,###ROOT_DSE###"
@@ -37,7 +40,7 @@ access to *
 database        mdb
 suffix          "###ROOT_DSE###"
 rootdn          "cn=Manager,###ROOT_DSE###"
-rootpw          ###PASSWORD###
+rootpw
 
 # Emplacement de la base de  la base de données
 # The database directory MUST exist prior to running slapd AND

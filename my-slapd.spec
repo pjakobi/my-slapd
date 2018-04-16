@@ -3,13 +3,18 @@
 #
 Summary: openldap simplified configuration (ready for Fusion Directory)
 Name: my-slapd
-#%define _topdir /home/utilisateur/Soft/rpmbuild
-#%define _tmppath /home/utilisateur/Soft/rpmbuild/tmp
+
 %define version 0.0
 %define release 1
 %define root_dse dc=thalesgroup,dc=com
 %define first_dc_val thalesgroup
-%define password secret
+
+%define _topdir /home/utilisateur/Soft/rpmbuild
+%define _tmppath %{_topdir}/tmp
+
+%define pwdtmpname %{expand:%%(mktemp -p %{_tmppath})}
+%define encrpwd %{expand:%%(slappasswd -T password > %{pwdtmpname})} 
+
 Version: %{version}
 Release: %{release}
 License: LGPL
@@ -41,8 +46,7 @@ Schemas from Fusion Directory are also necessary.
 
 
 %build
-sed 's/###ROOT_DSE###/%{root_dse}/' slapd.conf.skel > slapd.conf
-sed -i 's/###PASSWORD###/%{password}/' slapd.conf
+make slapd.conf
 sed 's/###ROOT_DSE###/%{root_dse}/' basedomain.ldif.skel > basedomain.ldif
 sed -i 's/###FIRST_DC_VAL###/%{first_dc_val}/' basedomain.ldif
 
