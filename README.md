@@ -23,11 +23,11 @@ and
 
 In order to use this feature, the yum repositories are also to be set correctly (CentOS base, etc.). For Fusion directory repos, refer to the site's documentation.
 
-At last, 3 parameters are to be set : the directory password, the root DSE, the directory first value. 
+2 parameters are to be set : the directory password and the root DSE, the directory "root". 
 
 Regarding the password, a value is to be provided, without encryption in the "password" file (see example). 
 
-The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. In these examples, the "Directory First Value" would be "gouv" or "google". It has to be set in the spec file 
+The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. It has to be set in the `root_dse` file 
 
 ## Building the RPM
 
