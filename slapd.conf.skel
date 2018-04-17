@@ -30,7 +30,7 @@ loglevel 256
 ###########################################################
 
 database        config
-rootpw
+rootpw		###PASSWD###
 
 database        monitor
 access to *
@@ -40,7 +40,7 @@ access to *
 database        mdb
 suffix          "###ROOT_DSE###"
 rootdn          "cn=Manager,###ROOT_DSE###"
-rootpw
+rootpw		###PASSWD###
 
 # Emplacement de la base de  la base de données
 # The database directory MUST exist prior to running slapd AND

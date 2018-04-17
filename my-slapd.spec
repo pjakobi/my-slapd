@@ -6,14 +6,10 @@ Name: my-slapd
 
 %define version 0.0
 %define release 1
-%define root_dse dc=thalesgroup,dc=com
-%define first_dc_val thalesgroup
 
 %define _topdir /home/utilisateur/Soft/rpmbuild
 %define _tmppath %{_topdir}/tmp
 
-%define pwdtmpname %{expand:%%(mktemp -p %{_tmppath})}
-%define encrpwd %{expand:%%(slappasswd -T password > %{pwdtmpname})} 
 
 Version: %{version}
 Release: %{release}
@@ -46,16 +42,22 @@ Schemas from Fusion Directory are also necessary.
 
 
 %build
-make slapd.conf
-sed 's/###ROOT_DSE###/%{root_dse}/' basedomain.ldif.skel > basedomain.ldif
-sed -i 's/###FIRST_DC_VAL###/%{first_dc_val}/' basedomain.ldif
-
+#@./getdc.sh ./root_dse ./slapd.conf.skel ./slapd.conf
+#@./getdc.sh ./root_dse ./basedomain.ldif.skel ./basedomain.ldif
+root_dse=`cat root_dse`
+first_dc_val=`echo $root_dse | sed 's/,/\n/' | sed '2,$d' | sed s/dc=//`
+sed s/###ROOT_DSE###/$root_dse/ slapd.conf.skel > slapd.conf
+sed s/###ROOT_DSE###/$root_dse/ basedomain.ldif.skel > basedomain.ldif
+sed -i s/###FIRST_DC_VAL###/$first_dc_val/ basedomain.ldif
+password=`cat ldap.secret`
+sed -i s/###PASSWD###/$password/ slapd.conf
 
 %install
 install --directory $RPM_BUILD_ROOT/etc
 install --directory $RPM_BUILD_ROOT/etc/openldap
 install -m 0755 slapd.conf $RPM_BUILD_ROOT/etc/openldap/slapd.conf
 install -m 0755 basedomain.ldif $RPM_BUILD_ROOT/etc/openldap/basedomain.ldif
+install -m 0600 ldap.secret $RPM_BUILD_ROOT/etc/ldap.secret
 install --directory $RPM_BUILD_ROOT/var
 install --directory $RPM_BUILD_ROOT/var/lib
 install --directory $RPM_BUILD_ROOT/var/lib/ldap
@@ -67,11 +69,12 @@ rm -rf /etc/openldap/slapd.d/*
 slaptest -f /etc/openldap/slapd.conf -F /etc/openldap/slapd.d
 chown -R ldap: /etc/openldap/slapd.d
 systemctl start slapd
-ldapadd -c -x -D cn=Manager,%{root_dse} -w %{password} -f /etc/openldap/basedomain.ldif
+root_dse=`grep suffix /etc/openldap/slapd.conf | sed s/suffix// | sed s/\"//g | sed "s/^[ \t]*//"`
+ldapadd -c -x -D cn=Manager,$root_dse -y /etc/ldap.secret -f /etc/openldap/basedomain.ldif
 systemctl stop slapd
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+#%clean
+#rm -rf $RPM_BUILD_ROOT
 
 
 %files
@@ -79,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.md TODO
 %config /etc/openldap/slapd.conf
 %config /etc/openldap/basedomain.ldif
+%config /etc/ldap.secret
 %config /var/lib/ldap/DB_CONFIG
 
 %changelog
