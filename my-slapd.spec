@@ -49,7 +49,7 @@ first_dc_val=`echo $root_dse | sed 's/,/\n/' | sed '2,$d' | sed s/dc=//`
 sed s/###ROOT_DSE###/$root_dse/ slapd.conf.skel > slapd.conf
 sed s/###ROOT_DSE###/$root_dse/ basedomain.ldif.skel > basedomain.ldif
 sed -i s/###FIRST_DC_VAL###/$first_dc_val/ basedomain.ldif
-password=`cat ldap.secret`
+password=`slappasswd -T ldap.secret`
 sed -i s/###PASSWD###/$password/ slapd.conf
 
 %install
@@ -70,7 +70,8 @@ slaptest -f /etc/openldap/slapd.conf -F /etc/openldap/slapd.d
 chown -R ldap: /etc/openldap/slapd.d
 systemctl start slapd
 root_dse=`grep suffix /etc/openldap/slapd.conf | sed s/suffix// | sed s/\"//g | sed "s/^[ \t]*//"`
-ldapadd -c -x -D cn=Manager,$root_dse -y /etc/ldap.secret -f /etc/openldap/basedomain.ldif
+password=`cat /etc/ldap.secret`
+ldapadd -c -x -D cn=Manager,$root_dse -w $password -f /etc/openldap/basedomain.ldif
 systemctl stop slapd
 
 #%clean
