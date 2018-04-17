@@ -38,8 +38,8 @@ access to *
         by * read
 
 database        mdb
-suffix          "###ROOT_DSE###"
-rootdn          "cn=Manager,###ROOT_DSE###"
+suffix          ###ROOT_DSE###
+rootdn          cn=Manager,###ROOT_DSE###
 rootpw		###PASSWD###
 
 # Emplacement de la base de  la base de données
