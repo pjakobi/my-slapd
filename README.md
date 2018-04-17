@@ -1,4 +1,4 @@
-# comtics-slapd
+# my-slapd
 
 This is a spec file that may be used to install quickly an openldap instance (rpm format). The rpm comes with a few configuration files that are necessary. The spec file also lists the various dependencies that are necessary, including fusion directory.
 
@@ -35,4 +35,4 @@ Then, just run `rpmbuild -ba my-slapd.spec` in the SPECS directory. You should t
 
 ## Installing openldap
 Normally, it becomes as simple as runing `yum localinstall comtics-slapd-version.noarch.rpm`.... 
-Important security notice : it is important to remove the /etc/ldap.secret file once installation is succesful.
+Important security notice : it is highly recommended to remove the /etc/ldap.secret file once installation is succesful.
