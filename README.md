@@ -31,10 +31,10 @@ The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=
 
 ## Building the RPM
 
-Then, just run `rpmbuild -ba my-slapd.spec` in the SPECS directory. You should then have the rpm file built into `RPMS/noarch/comtics-slapd-version.release.noarch.rpm`. Once built, erase the password file in order to avoid leaving a password in the clear somewhere : `echo "" > password`.
+Then, just run `rpmbuild -ba my-slapd.spec` in the SPECS directory. You should then have the rpm file built into `RPMS/noarch/my-slapd-version.release.noarch.rpm`. 
 
 ## Installing openldap
-Normally, it becomes as simple as runing `yum localinstall comtics-slapd-version.noarch.rpm`.... 
+Normally, it becomes as simple as runing `yum localinstall my-slapd-version.noarch.rpm`.... 
 Important security notice : 
--it is highly recommended to remove the /etc/ldap.secret file once installation is succesful.
--also, change the default password for the config and mdb database. Normally, you should use an encrypted password (see `man slappasswd` or use a GUI such as Apache Directory Studio).
+- it is highly recommended to remove the /etc/ldap.secret file after installation.
+- also, change the default password for the config and mdb database. Normally, you should use an encrypted password (see `man slappasswd` or use a GUI such as Apache Directory Studio).
