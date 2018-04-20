@@ -25,7 +25,7 @@ In order to use this feature, the yum repositories are also to be set correctly 
 
 2 parameters are to be set : the directory password and the root DSE, the directory "root". 
 
-Regarding the password, a value is to be provided, without encryption in the "ldap.secret" file (see example). 
+Regarding the password, a value is to be provided, without encryption, in the "ldap.secret" file (see example). 
 
 The root DSE is the "base of the Directory" : `dc=gouv,dc=fr` or `dc=google, dc=com`, etc. It has to be set in the `root_dse` file 
 
@@ -35,4 +35,6 @@ Then, just run `rpmbuild -ba my-slapd.spec` in the SPECS directory. You should t
 
 ## Installing openldap
 Normally, it becomes as simple as runing `yum localinstall comtics-slapd-version.noarch.rpm`.... 
-Important security notice : it is highly recommended to remove the /etc/ldap.secret file once installation is succesful.
+Important security notice : 
+-it is highly recommended to remove the /etc/ldap.secret file once installation is succesful.
+-also, change the default password for the config and mdb database. Normally, you should use an encrypted password (see `man slappasswd` or use a GUI such as Apache Directory Studio).
