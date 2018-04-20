@@ -1,0 +1,14 @@
+# OpenLDAP
+/var/log/openldap/slapd.log {
+   missingok
+   notifempty
+   compress
+   weekly
+   rotate 10
+   size=50M
+   sharedscripts
+   postrotate
+ # OpenLDAP logs via syslog, restart syslog if running
+   systemctl restart rsyslog
+ endscript
+}
