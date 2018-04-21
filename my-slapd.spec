@@ -27,7 +27,7 @@ Requires: openldap-clients
 Requires: fusiondirectory-plugin-systems-schema
 Requires: fusiondirectory-schema
 Requires: schema2ldif
-
+Requires: cyrus-sasl-ldap
 
 
 
