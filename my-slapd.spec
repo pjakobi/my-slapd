@@ -31,7 +31,6 @@ Requires: cyrus-sasl-gssapi
 
 
 
-
 %description
 This rpm customizes openldap for the needs of quick installation.
 Schemas from Fusion Directory are also necessary.
