@@ -25,6 +25,20 @@ modulepath      /usr/lib64/openldap
 # Journalisation
 loglevel 256
 
+# SASL configuration
+
+#authz-regexp
+#   uid=(.*),cn=(.*),cn=auth
+#   uid=$1,ou=People,###ROOT_DSE###
+
+authz-regexp
+        uid=ldapadmin,cn=gssapi,cn=auth
+        cn=Manager,###ROOT_DSE###
+
+authz-regexp
+        uid=(.*),cn=gssapi,cn=auth
+        ldap:///###ROOT_DSE###??sub?(&(uid=$1)(objectClass=inetOrgPerson))
+
 ###########################################################
 # database definitions
 ###########################################################

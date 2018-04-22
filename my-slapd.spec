@@ -5,7 +5,7 @@ Summary: openldap simplified configuration (ready for Fusion Directory)
 Name: my-slapd
 
 %define version 0.0
-%define release 2
+%define release 3
 
 %define _topdir /home/utilisateur/Soft/rpmbuild
 %define _tmppath %{_topdir}/tmp
@@ -27,6 +27,7 @@ Requires: openldap-clients
 Requires: fusiondirectory-plugin-systems-schema
 Requires: fusiondirectory-schema
 Requires: schema2ldif
+Requires: cyrus-sasl-gssapi
 
 
 
@@ -117,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/logrotate.d/openldap_logrotate
 
 %changelog
+* Sun Apr 21 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.3
+- SASL
 * Thu Apr 19 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.2
 - Prepare logging
 * Fri Mar 30 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.1
