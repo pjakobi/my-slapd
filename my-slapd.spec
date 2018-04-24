@@ -78,14 +78,20 @@ install --directory $RPM_BUILD_ROOT/etc/openldap
 install -m 0755 slapd.conf $RPM_BUILD_ROOT/etc/openldap/slapd.conf
 install -m 0755 basedomain.ldif $RPM_BUILD_ROOT/etc/openldap/basedomain.ldif
 install -m 0600 ldap.secret $RPM_BUILD_ROOT/etc/ldap.secret
+install --directory $RPM_BUILD_ROOT/etc/sasl2
+install -m 0644 sasl_slapd.conf $RPM_BUILD_ROOT/etc/sasl2/slapd.conf
+install --directory $RPM_BUILD_ROOT/etc/sysconfig
+install -m 0644 sasl_ldap.conf $RPM_BUILD_ROOT/etc/sysconfig/ldap
+
 install --directory $RPM_BUILD_ROOT/var
 install --directory $RPM_BUILD_ROOT/var/lib
 install --directory $RPM_BUILD_ROOT/var/lib/ldap
 install -m 0755 DB_CONFIG.example $RPM_BUILD_ROOT/var/lib/ldap/DB_CONFIG
 install --directory $RPM_BUILD_ROOT/var/log
 install --directory $RPM_BUILD_ROOT/var/log/openldap
-install -m 0644 openldap_logging $RPM_BUILD_ROOT/etc/rsyslog.d/openldap_logging
+install -m 0644 openldap_logging $RPM_BUILD_ROOT/etc/rsyslog.d/openldap_logging.conf
 install -m 0644 openldap_logrotate $RPM_BUILD_ROOT/etc/logrotate.d/openldap_logrotate
+
 
 %post
 # Prepare configuration
@@ -113,11 +119,12 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/openldap/basedomain.ldif
 /etc/ldap.secret
 %config /var/lib/ldap/DB_CONFIG
-%config /etc/rsyslog.d/openldap_logging
+%config /etc/rsyslog.d/openldap_logging.conf
 %config /etc/logrotate.d/openldap_logrotate
+%config /etc/sasl2/slapd.conf
 
 %changelog
-* Sun Apr 21 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.3
+* Sun Apr 22 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.3
 - SASL
 * Thu Apr 19 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.2
 - Prepare logging
