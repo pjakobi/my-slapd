@@ -5,7 +5,7 @@ Summary: openldap simplified configuration (ready for Fusion Directory)
 Name: my-slapd
 
 %define version 0.0
-%define release 3
+%define release 4
 
 %define _topdir /home/utilisateur/Soft/rpmbuild
 %define _tmppath %{_topdir}/tmp
@@ -22,6 +22,7 @@ BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: git
 BuildRequires: sed
 BuildRequires: wget
+BuildRequires: rpmdevtools 
 Requires: openldap-servers
 Requires: openldap-clients
 Requires: fusiondirectory-plugin-systems-schema
