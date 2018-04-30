@@ -7,22 +7,23 @@ Name: my-slapd
 %define version 0.0
 %define release 4
 
-%define _topdir /home/utilisateur/Soft/rpmbuild
+#%define _topdir /home/utilisateur/Soft/rpmbuild
 %define _tmppath %{_topdir}/tmp
+%define _gitpath %{_topdir}/git
 
 Version: %{version}
 Release: %{release}
 License: LGPL
 BuildArch: noarch
 Group: System Environment/Daemons
-Source0: %{name}-%{version}.%{release}.tar.gz
+#Source0: %{name}-%{version}.%{release}.tar.gz
+URL: http://github.com/pjakobi/my-slapd
 Vendor: Thales Communications & Security
 Packager: Pascal Jakobi <pascal.jakobi@thalesgroup.com>
 BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: git
 BuildRequires: sed
 BuildRequires: wget
-BuildRequires: rpmdevtools 
 Requires: openldap-servers
 Requires: openldap-clients
 Requires: fusiondirectory-plugin-systems-schema
@@ -37,7 +38,10 @@ This rpm customizes openldap for the needs of quick installation.
 Schemas from Fusion Directory are also necessary.
 
 %prep
-%setup -q -n %{name}-%{version}.%{release}
+#%setup -q -n %{name}-%{version}.%{release}
+rm -rf %{_gitpath}/%{name}-%{version}.%{release}
+mkdir -p %{_gitpath}/%{name}-%{version}.%{release}
+git clone %{url} %{_gitpath}/%{name}-%{version}.%{release}
 
 
 
@@ -46,6 +50,7 @@ Schemas from Fusion Directory are also necessary.
 # Create rootpw lines for mdb and config databases
 # (rootpw < qslappassd result = encrypted password >
 #
+cp  %{_gitpath}/%{name}-%{version}.%{release}/* .
 root_dse=`cat root_dse`
 sed s/###ROOT_DSE###/$root_dse/ slapd.conf.skel > slapd.conf
 
@@ -123,6 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/rsyslog.d/openldap_logging.conf
 %config /etc/logrotate.d/openldap_logrotate
 %config /etc/sasl2/slapd.conf
+%config /etc/sysconfig/ldap 
 
 %changelog
 * Sun Apr 22 2018  Pascal Jakobi <pascal.jakobi@thalesgroup.com> 0.0.3
